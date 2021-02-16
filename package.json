@@ -10,7 +10,8 @@
     "mock": "echo TODO: mock backend",
     "dev:frontend": "yarn run mock && cd react-app && yarn run start",
     "dev:backend": "yarn run build-frontend && concurrently \"tsc -w\" \"nodemon backend/dist/app.js\"",
-    "serve": "node backend/dist/app.js"
+    "serve": "pm2 start backend/dist/app.js --name shapes-app",
+    "stop": "pm2 stop shapes-app"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,8 @@
   },
   "homepage": "https://github.com/joeyjackson/shape-drawer#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "pm2": "^4.5.4"
   },
   "devDependencies": {
     "@tsconfig/node12": "^1.0.7",

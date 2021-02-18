@@ -12,6 +12,9 @@
 /build
 /backend/dist
 
+# mongodb
+/data
+
 # misc
 .DS_Store
 .env.local

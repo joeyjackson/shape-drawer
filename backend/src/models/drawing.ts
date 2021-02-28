@@ -9,11 +9,12 @@ export interface IDrawing extends Document {
 }
 
 export const DrawingSchema: Schema = new mongoose.Schema({
-  name: { type: String, required: true },
-  width: { type: Number, required: true },
-  height: { type: Number, required: true },
+  name: { type: String, required: true, minLength: 1, unique: true },
+  width: { type: Number, required: true, min: 1 },
+  height: { type: Number, required: true, min: 1 },
   shapes: [ShapeSchema],
 });
+// DrawingSchema.plugin(require('mongoose-beautiful-unique-validation'));
 
 // DrawingSchema.methods.prune = function () {
 //   console.log("prune")

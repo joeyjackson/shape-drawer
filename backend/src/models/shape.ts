@@ -8,7 +8,7 @@ export interface IShape extends Document {
 
 export const ShapeSchema: Schema = new mongoose.Schema({
   color: { type: String, enum: ["black", "red", "blue", "white", "orange"], default: 'black' },
-  vertices: [VertexSchema]
+  vertices: { type: [VertexSchema], required: true }
 });
 
 export const Shape: Model<IShape> = mongoose.model("Shape", ShapeSchema);

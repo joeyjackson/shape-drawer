@@ -7,12 +7,14 @@ export default class Shape {
 
   _p5: P5;
   color: ColorChoice;
-  vertices: P5.Vector[] = [];
-  finished: boolean = false;
+  vertices: P5.Vector[];
+  finished: boolean;
 
-  constructor(p5: P5, color: ColorChoice) {
+  constructor(p5: P5, color: ColorChoice, vertices: Array<{ x: number, y: number }> = []) {
     this.color = color;
     this._p5 = p5;
+    this.vertices = vertices.map(({x, y}) => p5.createVector(x, y));
+    this.finished = vertices.length > 0;
   }
 
   finishShape() {

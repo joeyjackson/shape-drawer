@@ -13,8 +13,9 @@ import Alert from 'react-bootstrap/Alert';
 import Badge from 'react-bootstrap/Badge';
 import Modal from 'react-bootstrap/Modal';
 
-export const BASE_URL = "http://127.0.0.1:3001";
-// const BASE_URL = undefined;
+// For local testing:
+// export const BASE_URL = "http://127.0.0.1:3001";
+export const BASE_URL = undefined;
 
 interface Props {
   initWidth?: number;

@@ -11,7 +11,9 @@
     "dev:frontend": "concurrently \"yarn run mock\" \"cd react-app && yarn run start\"",
     "dev:backend": "yarn run build-frontend && concurrently \"tsc -w\" \"nodemon backend/dist/app.js\"",
     "serve": "pm2 start backend/dist/app.js --name shapes-app",
-    "stop": "pm2 stop shapes-app"
+    "stop": "pm2 stop shapes-app",
+    "docker-build": "docker build -t joeyjackson/shape-drawer-app . && docker build -t joeyjackson/shape-drawer-mongodb mongo/.",
+    "docker-build-nc": "docker build --no-cache -t joeyjackson/shape-drawer-app . && docker build --no-cache -t joeyjackson/shape-drawer-mongodb mongo/."
   },
   "repository": {
     "type": "git",
@@ -25,9 +27,6 @@
   },
   "homepage": "https://github.com/joeyjackson/shape-drawer#readme",
   "dependencies": {
-    "@types/cors": "^2.8.10",
-    "@types/mongoose": "^5.10.3",
-    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -37,7 +36,9 @@
   },
   "devDependencies": {
     "@tsconfig/node12": "^1.0.7",
+    "@types/cors": "^2.8.10",
     "@types/express": "^4.17.11",
+    "@types/mongoose": "^5.10.3",
     "@types/node": "^14.14.28",
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.3",

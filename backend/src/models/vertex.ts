@@ -10,4 +10,4 @@ export const VertexSchema: Schema = new mongoose.Schema({
   y: { type: Number, required: true }
 });
 
-export const Vertex: Model<IVertex> = mongoose.model("Vertex", VertexSchema);
+export const Vertex = mongoose.model<IVertex>("Vertex", VertexSchema);

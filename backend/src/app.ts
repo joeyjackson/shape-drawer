@@ -2,7 +2,6 @@ import express from "express";
 import path from "path";
 import http from "http";
 import dotenv from 'dotenv';
-import bodyparser from 'body-parser';
 import { connectToMongo } from "./mongo";
 import { applyApiRoutes } from "./routes";
 import cors from "cors";
@@ -22,8 +21,8 @@ if (NODE_ENV === "development") {
 } else {
   console.log("CORS disabled");
 }
-app.use(bodyparser.urlencoded({ extended: true }))
-app.use(bodyparser.json());
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
 app.use(express.static(INDEX_HTML_DIR));
 app.get("/", (req, res) => {
   res.sendFile(path.join(INDEX_HTML_DIR, "index.html"))

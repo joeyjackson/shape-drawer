@@ -11,4 +11,4 @@ export const ShapeSchema: Schema = new mongoose.Schema({
   vertices: { type: [VertexSchema], required: true }
 });
 
-export const Shape: Model<IShape> = mongoose.model("Shape", ShapeSchema);
+export const Shape = mongoose.model<IShape>("Shape", ShapeSchema);

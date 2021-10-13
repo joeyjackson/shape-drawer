@@ -20,4 +20,4 @@ export const DrawingSchema: Schema = new mongoose.Schema({
 //   console.log("prune")
 // }
 
-export const Drawing: Model<IDrawing> = mongoose.model("Drawing", DrawingSchema);
+export const Drawing = mongoose.model<IDrawing>("Drawing", DrawingSchema);

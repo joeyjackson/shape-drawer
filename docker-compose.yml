@@ -2,6 +2,7 @@ version: "3.9"
 services:
   app:
     image: joeyjackson/shape-drawer-app
+    restart: unless-stopped
     ports:
       - "${SHAPE_DRAWER_APP_PORT:-3001}:3000"
     environment:
@@ -12,9 +13,11 @@ services:
       MONGO_AUTH_SOURCE: ${MONGO_AUTH_SOURCE:-shapeDrawer}
       MONGO_USER: ${MONGO_USER:-shapeDrawerAppServer}
       MONGO_PASSWORD: ${MONGO_PASSWORD}
+    depends_on:
+      - mongo
   mongo:
     image: joeyjackson/shape-drawer-mongodb
-    restart: always
+    restart: unless-stopped
     environment: 
       MONGO_INITDB_DATABASE: admin
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-root}

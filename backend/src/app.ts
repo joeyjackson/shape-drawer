@@ -5,9 +5,13 @@ import dotenv from 'dotenv';
 import { connectToMongo } from "./mongo";
 import { applyApiRoutes } from "./routes";
 import cors from "cors";
+import { exit } from "process";
 
 dotenv.config({ path: path.resolve(__dirname, "..", "..", ".env") });
-connectToMongo();
+connectToMongo().catch(err => {
+  console.error("Could not establish connection with MongoDB:", err);
+  exit(1);
+});
 
 const INDEX_HTML_DIR = path.join(__dirname, "..", "..", "react-app", "build");
 const PORT = (process.env.PORT || "3001") as unknown as number;

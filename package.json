@@ -4,16 +4,16 @@
   "description": "",
   "main": "backend/src/app.ts",
   "scripts": {
+    "build": "yarn run build-frontend && yarn run build-backend",
     "build-frontend": "cd react-app && yarn run build",
     "build-backend": "tsc",
-    "build": "yarn run build-frontend && yarn run build-backend",
-    "mock": "echo TODO: mock backend && cross-env NODE_ENV=development node backend/dist/app.js",
-    "dev:frontend": "concurrently \"yarn run mock\" \"cd react-app && yarn run start\"",
-    "dev:backend": "yarn run build-frontend && concurrently \"tsc -w\" \"nodemon backend/dist/app.js\"",
+    "dev:mongodb": "docker run --name dev_mongodb --rm -p 27017:27017 -e MONGO_INITDB_DATABASE=admin -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=rootpwd -e MONGO_AUTH_SOURCE=test -e MONGO_USER=testUser -e MONGO_PASSWORD=pwd joeyjackson/shape-drawer-mongodb",
+    "dev": "concurrently \"yarn run dev:mongodb\" \"tsc -w\" \"cross-env NODE_ENV=development MONGO_AUTH_SOURCE=test MONGO_USER=testUser MONGO_PASSWORD=pwd nodemon backend/dist/app.js\" \"cd react-app && yarn run start\"",
     "serve": "pm2 start backend/dist/app.js --name shapes-app",
     "stop": "pm2 stop shapes-app",
-    "docker-build": "docker build -t joeyjackson/shape-drawer-app . && docker build -t joeyjackson/shape-drawer-mongodb mongo/.",
-    "docker-build-nc": "docker build --no-cache -t joeyjackson/shape-drawer-app . && docker build --no-cache -t joeyjackson/shape-drawer-mongodb mongo/."
+    "docker-build": "docker build -t joeyjackson/shape-drawer-app . && docker build -t joeyjackson/shape-drawer-mongodb ./mongo/",
+    "docker-build-nc": "docker build --no-cache -t joeyjackson/shape-drawer-app . && docker build --no-cache -t joeyjackson/shape-drawer-mongodb ./mongo/",
+    "docker-build-mongodb": "docker build --no-cache -t joeyjackson/shape-drawer-mongodb ./mongo/"
   },
   "repository": {
     "type": "git",

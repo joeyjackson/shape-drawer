@@ -8,14 +8,15 @@ import cors from "cors";
 import { exit } from "process";
 
 dotenv.config({ path: path.resolve(__dirname, "..", "..", ".env") });
+
 connectToMongo().catch(err => {
   console.error("Could not establish connection with MongoDB:", err);
   exit(1);
 });
 
 const INDEX_HTML_DIR = path.join(__dirname, "..", "..", "react-app", "build");
-const PORT = (process.env.PORT || "3001") as unknown as number;
-const HOST = process.env.HOST || "localhost";
+const PORT = (process.env.PORT || 3001) as unknown as number;
+const HOST = process.env.HOST || "127.0.0.1";
 const NODE_ENV = process.env.NODE_ENV || "production";
 const app = express();
 

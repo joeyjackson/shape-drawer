@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useCallback, useRef, useState, useEffect } from 'react';
 import P5 from "p5";
 import axios from "axios";
+import { REACT_APP_BACKEND_BASE_URL } from "../App";
 import P5Canvas from './P5Canvas';
 import Shape, { ColorChoice } from "./Shape";
 import Button from 'react-bootstrap/Button';
@@ -12,10 +13,6 @@ import Toast from 'react-bootstrap/Toast';
 import Alert from 'react-bootstrap/Alert';
 import Badge from 'react-bootstrap/Badge';
 import Modal from 'react-bootstrap/Modal';
-
-// For local testing:
-// export const BASE_URL = "http://127.0.0.1:3001";
-export const BASE_URL = undefined;
 
 interface Props {
   initWidth?: number;
@@ -121,7 +118,7 @@ const DrawingCanvas: FunctionComponent<Props> = ({ initWidth = 600, initHeight =
       setShowToast(true);
     } else {
       setIsSaving(true);
-      axios.post(`/api/drawings`, doc, { baseURL: BASE_URL })
+      axios.post(`/api/drawings`, doc, { baseURL: REACT_APP_BACKEND_BASE_URL })
       .then((res) => {
         setDrawingId(res?.data?._id);
         saveDone(res?.data);
@@ -150,7 +147,7 @@ const DrawingCanvas: FunctionComponent<Props> = ({ initWidth = 600, initHeight =
       setShowToast(true);
     } else {
       setIsSaving(true);
-      axios.put(`/api/drawings?name=${doc.name}`, doc, { baseURL: BASE_URL })
+      axios.put(`/api/drawings?name=${doc.name}`, doc, { baseURL: REACT_APP_BACKEND_BASE_URL })
       .then((res) => {
         setDrawingId(res?.data?._id);
         saveDone(res?.data);
@@ -191,7 +188,7 @@ const DrawingCanvas: FunctionComponent<Props> = ({ initWidth = 600, initHeight =
     setShowDeleteModal(false);
 
     if (drawingId !== undefined) {
-      axios.delete(`/api/drawings/${drawingId}`, { baseURL: BASE_URL })
+      axios.delete(`/api/drawings/${drawingId}`, { baseURL: REACT_APP_BACKEND_BASE_URL })
       .then((res) => {
         const doc: Drawing | null = res.data;
 

@@ -5,7 +5,8 @@ import Modal from 'react-bootstrap/Modal';
 import FormControl from 'react-bootstrap/FormControl';
 import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
-import { Drawing, BASE_URL } from "./DrawingCanvas";
+import { REACT_APP_BACKEND_BASE_URL } from '../App';
+import { Drawing } from "./DrawingCanvas";
 import InfiniteScroll from 'react-infinite-scroller';
 
 interface Props {
@@ -36,7 +37,7 @@ const LoadDrawingModal: FunctionComponent<Props> = ({ show, toggle, onSuccess, o
   const loadPage = useCallback((page: number) => {
     const nameQ = searchText ? `&name=${searchText}` : "";
     const uri = `/api/drawings?skip=${page * pageSize}&limit=${pageSize}${nameQ}`;
-    axios.get(uri, { baseURL: BASE_URL })
+    axios.get(uri, { baseURL: REACT_APP_BACKEND_BASE_URL })
     .then((res) => {
       const docs: Array<Drawing> = res.data;
       if (docs.length >= pageSize) {

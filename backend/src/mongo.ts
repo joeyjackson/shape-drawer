@@ -3,8 +3,8 @@ import mongoose from "mongoose";
 export const connectToMongo = async () => {
   const MONGO_HOST = process.env.MONGO_HOST || '127.0.0.1';
   const MONGO_PORT = process.env.MONGO_PORT || '27017';
-  const MONGO_AUTH_SOURCE = process.env.MONGO_AUTH_SOURCE || 'shapeDrawer';
-  const MONGO_USERNAME = process.env.MONGO_USER || 'shapeDrawerAppServer'
+  const MONGO_AUTH_SOURCE = process.env.MONGO_AUTH_SOURCE || 'test';
+  const MONGO_USERNAME = process.env.MONGO_USER || 'testUser'
   const MONGO_PASSWORD = process.env.MONGO_PASSWORD || '';
   if (MONGO_PASSWORD === '') {
     throw "app requires a MONGO_PASSWORD environment variable";

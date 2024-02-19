@@ -7,7 +7,7 @@ import Shape, { ColorChoice } from "./Shape";
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import InputGroup from 'react-bootstrap/InputGroup';
-import FormControl from 'react-bootstrap/FormControl';
+import Form from 'react-bootstrap/Form';
 import LoadDrawingModal from './LoadDrawingModal';
 import Toast from 'react-bootstrap/Toast';
 import Alert from 'react-bootstrap/Alert';
@@ -311,11 +311,11 @@ const DrawingCanvas: FunctionComponent<Props> = ({ initWidth = 600, initHeight =
 
   return (
     <>
-      {drawingId && <Badge variant="dark">{drawingId}</Badge>}
+      {drawingId && <Badge bg="dark">{drawingId}</Badge>}
       <P5Canvas sketch={sketch}/>
       <div className="optionsRow">
         <InputGroup size="sm" className="mx-2 w-25">
-          <FormControl
+          <Form.Control
             size="sm"
             placeholder="Drawing Name"
             aria-label="Drawing Name"
@@ -323,11 +323,9 @@ const DrawingCanvas: FunctionComponent<Props> = ({ initWidth = 600, initHeight =
             value={drawingName}
             onChange={event => { setDrawingName(event.target.value); setDrawingId(undefined); }}
           />
-          <InputGroup.Append>
-            <Button size="sm" variant="primary" disabled={isSaving} onClick={save}>
-              {isSaving ? "Saving" : "Save"}
-            </Button>
-          </InputGroup.Append>
+          <Button size="sm" variant="primary" disabled={isSaving} onClick={save}>
+            {isSaving ? "Saving" : "Save"}
+          </Button>
         </InputGroup>
 
         <Button size="sm" className="mx-2" variant="light" onClick={toggleLoadModal}>

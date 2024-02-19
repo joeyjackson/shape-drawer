@@ -32,10 +32,6 @@ export const connectToMongo = async () => {
 
   await mongoose.connect(
     `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_AUTH_SOURCE}?authSource=${MONGO_AUTH_SOURCE}`,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    }
   )
 
   return db;

@@ -1,23 +1,12 @@
 import { Drawing, IDrawing } from "../models/drawing";
 import { Request, Response } from "express";
-
-const handleError = (err: any, res: Response) => {
-  if (err.code === 11000) {
-    res.status(409);
-  } else if (err.name === "ValidationError" || err.name === "QueryError") {
-    res.status(400);
-  } else {
-    res.status(500);
-  }
-  res.send(err);
-}
+import { handleError } from "../errors";
 
 export const createDrawing = (req: Request, res: Response) => {
-  Drawing.create(req.body, (err: any, doc: IDrawing) => {
-    if (err) {
-      handleError(err, res);
-    }
-    res.json(doc);
+  Drawing.create(req.body).then((doc) => {
+    res.status(200).json(doc);
+  }).catch((err: any) => {
+    handleError(err, res);
   });
 }
 
@@ -32,43 +21,37 @@ export const listDrawings = (req: Request, res: Response) => {
     skip = parseInt(req.query.skip);
     if (isNaN(skip)) {
       handleError({ name: "QueryError", message: `Cannot parse query param "skip=${req.query.skip}" as an integer` }, res);
-      return
+      return;
     }
   }
   if (typeof req.query.limit === "string") {
     limit = parseInt(req.query.limit);
     if (isNaN(limit)) {
       handleError({ name: "QueryError", message: `Cannot parse query param "limit=${req.query.limit}" as an integer` }, res);
-      return
+      return;
     }
   }
   const _filter = name_re ? { name: name_re } : {};
-  Drawing.find(_filter, undefined, { skip: skip, limit: limit })
-  .exec((err: any, doc: IDrawing[]) => {
-    if (err) {
-      handleError(err, res);
-    }
-    res.json(doc);
+  Drawing.find(_filter, undefined, { skip: skip, limit: limit }).exec().then(doc => {
+    res.status(200).json(doc);
+  }).catch((err: any) => {
+    handleError(err, res);
   });
 }
 
 export const getDrawing = (req: Request, res: Response) => {
-  Drawing.findById(req.params.id)
-  .exec((err: any, doc: IDrawing | null) => {
-    if (err) {
-      handleError(err, res);
-    }
-    res.json(doc);
+  Drawing.findById(req.params.id).exec().then(doc => {
+    res.status(200).json(doc);
+  }).catch((err: any) => {
+    handleError(err, res);
   });
 }
 
 export const editDrawingById = (req: Request, res: Response) => {
-  Drawing.findByIdAndUpdate(req.params.id, req.body, { new: true })
-  .exec((err: any, doc: IDrawing | null) => {
-    if (err) {
-      handleError(err, res);
-    }
-    res.json(doc);
+  Drawing.findByIdAndUpdate(req.params.id, req.body, { new: true }).exec().then(doc => {
+    res.status(200).json(doc);
+  }).catch((err: any) => {
+    handleError(err, res);
   });
 }
 
@@ -79,25 +62,20 @@ export const editDrawingByName = (req: Request, res: Response) => {
   }
   if (name === "") {
     handleError({ name: "QueryError", message: `Must specify query param "name"` }, res);
-    return
+    return;
   }
 
-  Drawing.findOneAndUpdate({ name: name }, req.body, { new: true })
-  .exec((err: any, doc: IDrawing | null) => {
-    if (err) {
-      handleError(err, res);
-    }
-    res.json(doc);
+  Drawing.findOneAndUpdate({ name: name }, req.body, { new: true }).exec().then(doc => {
+    res.status(200).json(doc);
+  }).catch((err: any) => {
+    handleError(err, res);
   });
 }
 
 export const deleteDrawing = (req: Request, res: Response) => {
-  Drawing.findByIdAndDelete(req.params.id)
-  .exec((err: any, doc: IDrawing | null) => {
-    if (err) {
-      handleError(err, res);
-    }
-    res.json(doc);
+  Drawing.findByIdAndDelete(req.params.id).exec().then(doc => {
+    res.status(200).json(doc);
+  }).catch((err: any) => {
+    handleError(err, res);
   });
 }
-

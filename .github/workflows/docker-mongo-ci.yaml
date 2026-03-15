@@ -11,6 +11,8 @@ on:
   pull_request:
     branches:
       - 'main'
+    paths:
+      - 'mongo/**'
 
 jobs:
   build:
@@ -65,6 +67,6 @@ jobs:
           context: ./mongo
           # The latest mongodb version (version 5+) does not run on raspberry pi architecture so an older version must be used
           # The older version also uses the legacy mongo shell instead of mongosh
-          build-args:
-            - BASE_VERSION=4.4.13
-            - MONGO_SHELL=mongo
+          build-args: |
+              BASE_VERSION=4.4.13
+              MONGO_SHELL=mongo

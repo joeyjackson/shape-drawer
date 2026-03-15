@@ -1,5 +1,5 @@
 # shape-drawer
-Drawing application using the MERN stack
+Drawing application using the [MERN stack](https://www.mongodb.com/resources/languages/mern-stack)
 
 ## Installing Dependencies
 ```

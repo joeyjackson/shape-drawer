@@ -41,12 +41,16 @@ jobs:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
       
       - name: Build and push primary Docker image
         uses: docker/build-push-action@v7
         with:
+          platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           annotations: ${{ steps.meta.outputs.annotations }}
@@ -58,6 +62,7 @@ jobs:
       - name: Build and push raspberry pi flavor Docker image 
         uses: docker/build-push-action@v7
         with:
+          platforms: linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta-pi.outputs.tags }}
           annotations: ${{ steps.meta-pi.outputs.annotations }}
@@ -68,5 +73,5 @@ jobs:
           # The latest mongodb version (version 5+) does not run on raspberry pi architecture so an older version must be used
           # The older version also uses the legacy mongo shell instead of mongosh
           build-args: |
-              BASE_VERSION=4.4.13
+              BASE_VERSION=4.4.18
               MONGO_SHELL=mongo
